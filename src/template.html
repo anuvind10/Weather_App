@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo-List</title>
+</head>
+<body>
+    <div id="content">
+        <div id="overlay"></div>
+        <nav id="sidebar">
+            <div id="logo-div">
+                <img src="" alt="logo" id="logo-icon">
+                <h1>ToDo Lists</h1>
+            </div>
+            <ul>
+                <li id="today" class="list-item">
+                    <a href="#">
+                        <img id="today-icon" src="" alt="Today" class="icon">
+                        <span>Today</span>
+                    </a>
+                </li>
+                <li id="thisWeek" class="list-item">
+                    <a href="#">
+                        <img id="thisWeek-icon" src="" alt="This Week" class="icon">
+                        <span>This Week</span>
+                    </a>
+                </li>
+                <li id="projects" class="list-item">    
+                    <button id="projects-dropdown-btn" class="dropdown-btn expandable">
+                        <img id="projects-icon" src="" alt="projects icon" class="icon">
+                        <span>Projects</span>
+                        <img id="projects-expand-icon" src="" alt="expand icon" class="icon">
+                        <img src="" alt="add new project" id="add-project-icon" class="icon">
+                    </button>
+                    <ul id="projects-list" class="sub-list show">
+                        <div>
+                            <div id="Default-0" class="project activeProject">
+                                <li>Default</li>
+                                <img id="add-fav-icon" class="icon add-fav-icon" src="">
+                            </div>
+                            <div id="Archive-9999" class="project">
+                                <li>Archive</li>
+                            </div>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <div id="projectModal" class="modal">
+                <h1>Add Project</h1>
+                <input id="project-name" type="text" placeholder="Project name" required>
+                <div>
+                    <button id="add-project-btn">Add</button>
+                    <button id="cancel-btn">Cancel</button>
+                </div>
+            </div>
+            <div id="task-list" class="empty">
+                <div id="empty-task-list">
+                    <img src="" alt="Add Task" id="add-task-icon">
+                    <p>Add New Task</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <footer></footer>
+</body>
+</html>
