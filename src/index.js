@@ -1,11 +1,13 @@
 import "./styles.css";
 import * as weather from "./weather";
-import logoImage from "./images/logo.png";
+import * as display from "./display";
 
 function pageLoad() {
-  renderImages();
   const searchBtn = document.querySelector("#searchBtn");
 
+  display.renderImages();
+  // By default get the weather of Delhi
+  getWeather("Delhi"), { once: true };
   searchBtn.addEventListener("click", (event) => {
     event.preventDefault();
     const location = document.querySelector("#location").value;
@@ -16,12 +18,7 @@ function pageLoad() {
 export async function getWeather(location) {
   const weatherData = await weather.fetchWeather(location);
   const weatherInfo = weather.getRequiredInfo(weatherData);
-  console.log(weatherInfo);
-}
-
-function renderImages() {
-  const logo = document.querySelector("#app-logo");
-  logo.src = logoImage;
+  display.updateDisplay(weatherInfo);
 }
 
 document.addEventListener("DOMContentLoaded", pageLoad);

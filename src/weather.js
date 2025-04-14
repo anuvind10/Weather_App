@@ -17,14 +17,27 @@ export async function fetchWeather(location) {
 }
 
 export function getRequiredInfo(data) {
+  console.log(data);
   const weatherInfo = {
     address: data.address,
     description: data.description,
-    currentConditions: data.currentConditions,
+    temperature: data.currentConditions.temp,
+    conditions: data.currentConditions.conditions,
     days: data.days,
     resolvedAddress: data.resolvedAddress,
     timeZone: data.timezone,
   };
 
   return weatherInfo;
+}
+
+// Handle correct temperature unit
+export function getTemperature(temperature, unit) {
+  if (unit === "fahrenheit") {
+    const tempInFarenheit = ((temperature * 9) / 5 + 32).toFixed(2);
+    return tempInFarenheit;
+  } else {
+    const tempInCelcius = (((temperature - 32) * 5) / 9).toFixed(2);
+    return tempInCelcius;
+  }
 }
