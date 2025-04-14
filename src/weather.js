@@ -1,4 +1,4 @@
-export async function getWeather(location) {
+export async function fetchWeather(location) {
   const key = "99489GGHVJNNLN7NDW2RQKAGS";
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=${key}`;
 
@@ -16,8 +16,16 @@ export async function getWeather(location) {
   }
 }
 
-export function weather(location) {
-  const weatherData = getWeather(location);
+export function getRequiredInfo(data) {
+  console.log(data);
+  const weatherInfo = {
+    address: data.address,
+    description: data.description,
+    currentConditions: data.currentConditions,
+    days: data.days,
+    resolvedAddress: data.resolvedAddress,
+    timeZone: data.timezone,
+  };
 
-  console.log(weatherData.description);
+  return weatherInfo;
 }
