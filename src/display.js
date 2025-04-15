@@ -44,24 +44,23 @@ async function getConditionImage(conditions) {
   const possibleConditions = {
     clear: "clear",
     fog: "fog",
-    "heavy rain": "heavy rain",
-    "light rain": "light rain",
+    heavy_rain: "heavy rain",
+    light_rain: "light rain",
     mist: "mist",
-    "partially cloudy": "partially cloudy",
-    "snow and rain showers": "rainy snow",
+    partially_cloudy: "partially cloudy",
+    snow_and_rain_showers: "rainy snow",
     snow: "snowing",
     thunderstorm: "thunderstorm",
   };
 
-  for (const condition in possibleConditions) {
-    if (condition === conditions) {
-      conditionImage = await import(
-        `./images/${possibleConditions.conditions}.png`
-      );
-    }
-  }
-  if (conditionImage === undefined) {
-    conditionImage = await import("./images/clear.png");
+  conditions = conditions.replaceAll(" ", "_");
+
+  if (conditions in possibleConditions) {
+    conditionImage = await import(
+      `./images/${possibleConditions[conditions]}.png`
+    );
+  } else {
+    conditionImage = await import(`./images/clear.png`);
   }
 
   //   possibleConditions.forEach((key) => {
