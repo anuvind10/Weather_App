@@ -39,7 +39,7 @@ export function updateDisplay(weatherInfo) {
 }
 
 async function getConditionImage(conditions) {
-  conditions = conditions.toLowerCase();
+  conditions = conditions.toLowerCase().replaceAll(" ", "_");
   let conditionImage;
   const possibleConditions = {
     clear: "clear",
@@ -53,19 +53,14 @@ async function getConditionImage(conditions) {
     thunderstorm: "thunderstorm",
   };
 
-  conditions = conditions.replaceAll(" ", "_");
-
   if (conditions in possibleConditions) {
     conditionImage = await import(
       `./images/${possibleConditions[conditions]}.png`
     );
   } else {
+    //default image
     conditionImage = await import(`./images/clear.png`);
   }
-
-  //   possibleConditions.forEach((key) => {
-  //     console.log(key);
-  //   });
 
   return conditionImage.default;
 }
