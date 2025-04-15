@@ -17,7 +17,6 @@ export async function fetchWeather(location) {
 }
 
 export function getRequiredInfo(data) {
-  console.log(data);
   const weatherInfo = {
     address: data.address,
     description: data.description,
@@ -32,12 +31,7 @@ export function getRequiredInfo(data) {
 }
 
 // Handle correct temperature unit
-export function getTemperature(temperature, unit) {
-  if (unit === "fahrenheit") {
-    const tempInFarenheit = ((temperature * 9) / 5 + 32).toFixed(2);
-    return tempInFarenheit;
-  } else {
-    const tempInCelcius = (((temperature - 32) * 5) / 9).toFixed(2);
-    return tempInCelcius;
-  }
+export function convertToCelcius(temperature) {
+  const tempInCelcius = (((temperature - 32) * 5) / 9).toFixed(2);
+  return tempInCelcius;
 }

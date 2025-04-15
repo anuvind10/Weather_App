@@ -1,58 +1,60 @@
 import logoImage from "./images/logo.png";
 import backgroundImage from "./images/background_image3.jpg";
-import { getTemperature } from "./weather";
+import { convertToCelcius } from "./weather";
 
 // Handle image loads
-export function renderImages() {
-  const logo = document.querySelector("#app-logo");
-  const weatherIcon = document.querySelector("#weather-icon");
+export function renderImages(element, url) {
+  // Default images
+  if (element === undefined) {
+    const body = document.querySelector("body");
+    const logo = document.querySelector("#app-logo");
+    const weatherIcon = document.querySelector("#weather-icon");
 
-  logo.src = logoImage;
-  weatherIcon.src = logoImage;
+    body.style.backgroundImage = `url(${backgroundImage})`;
+    body.style.backgroundRepeat = "no-repeat";
+    body.style.backgroundSize = "cover";
+    body.style.backgroundPosition = "center";
+    logo.src = logoImage;
+    weatherIcon.src = logoImage;
+  }
+  // Dynamic images
+  else {
+    element.src = url;
+  }
 }
 
 // Handle UI changes
-export function updateDisplay(weatherInfo) {
-  //   Debug ...........................
-  //   console.log(weatherInfo);
-  //   console.log(weatherInfo.address);
-  //   console.log(weatherInfo.description);
-  //   console.log(weatherInfo.temperature);
-  console.log(weatherInfo.conditions);
-  //   console.log(weatherInfo.days);
-  //   console.log(weatherInfo.resolvedAddress);
-  //   console.log(weatherInfo.timeZone);
-
-  // ..................
-
-  const body = document.querySelector("body");
+export function updateDisplay(weatherInfo, trigger) {
   const weatherLocation = document.querySelector("#weather-location");
   const temperature = document.querySelector("#temperature");
   const weatherIcon = document.querySelector("#weather-icon");
   const weather = document.querySelector("#weatherDesc");
   const description = document.querySelector("#description");
-  const tempUnit = document.querySelector("#tempUnitBtn").className;
+  const currentUnit = document.querySelector("#tempUnitBtn").className;
 
-  body.style.backgroundImage = `url(${backgroundImage})`;
-  body.style.backgroundRepeat = "no-repeat";
-  body.style.backgroundSize = "cover";
-  body.style.backgroundPosition = "center";
+  let currentTemp;
 
-  const currentTemp = getTemperature(weatherInfo.temperature, tempUnit);
+  if (currentUnit === "celcius") {
+    currentTemp = convertToCelcius(weatherInfo.temperature);
+  } else {
+    currentTemp = weatherInfo.temperature;
+  }
+
   weatherLocation.textContent = weatherInfo.address;
   temperature.textContent = currentTemp + "°";
-
-  getConditionImage(weatherInfo.conditions).then((image) => {
-    weatherIcon.src = image;
-  });
-
   weather.textContent = weatherInfo.conditions;
   description.textContent = weatherInfo.description;
+
+  // Change in weather icon
+  getWeatherIcon(weatherInfo.conditions).then((imageURL) => {
+    renderImages(weatherIcon, imageURL);
+  });
 }
 
-async function getConditionImage(conditions) {
+async function getWeatherIcon(conditions) {
   conditions = conditions.toLowerCase().replaceAll(" ", "_");
   let conditionImage;
+
   const possibleConditions = {
     clear: "clear",
     fog: "fog",
@@ -66,6 +68,7 @@ async function getConditionImage(conditions) {
     overcast: "overcast",
   };
 
+  // If an image exists, use that
   if (conditions in possibleConditions) {
     conditionImage = await import(
       `./images/${possibleConditions[conditions]}.png`
@@ -76,4 +79,21 @@ async function getConditionImage(conditions) {
   }
 
   return conditionImage.default;
+}
+
+export function updateUnit(weatherInfo) {
+  const unitBtn = document.querySelector("#tempUnitBtn");
+  const currenUnit = unitBtn.className;
+
+  if (currenUnit === "celcius") {
+    unitBtn.classList.remove("celcius");
+    unitBtn.classList.add("fahrenheit");
+    unitBtn.textContent = "F°";
+  } else {
+    unitBtn.classList.remove("fahrenheit");
+    unitBtn.classList.add("celcius");
+    unitBtn.textContent = "C°";
+  }
+
+  updateDisplay(weatherInfo);
 }
