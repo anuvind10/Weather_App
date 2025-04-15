@@ -27,6 +27,8 @@ export function updateDisplay(weatherInfo) {
   const weatherLocation = document.querySelector("#weather-location");
   const temperature = document.querySelector("#temperature");
   const weatherIcon = document.querySelector("#weather-icon");
+  const weather = document.querySelector("#weatherDesc");
+  const description = document.querySelector("#description");
   const tempUnit = document.querySelector("#tempUnitBtn").className;
 
   const currentTemp = getTemperature(weatherInfo.temperature, tempUnit);
@@ -36,6 +38,9 @@ export function updateDisplay(weatherInfo) {
   getConditionImage(weatherInfo.conditions).then((image) => {
     weatherIcon.src = image;
   });
+
+  weather.textContent = weatherInfo.conditions;
+  description.textContent = weatherInfo.description;
 }
 
 async function getConditionImage(conditions) {
@@ -51,6 +56,7 @@ async function getConditionImage(conditions) {
     snow_and_rain_showers: "rainy snow",
     snow: "snowing",
     thunderstorm: "thunderstorm",
+    overcast: "overcast",
   };
 
   if (conditions in possibleConditions) {
