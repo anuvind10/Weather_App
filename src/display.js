@@ -1,4 +1,5 @@
 import logoImage from "./images/logo.png";
+import backgroundImage from "./images/background_image3.jpg";
 import { getTemperature } from "./weather";
 
 // Handle image loads
@@ -24,12 +25,18 @@ export function updateDisplay(weatherInfo) {
 
   // ..................
 
+  const body = document.querySelector("body");
   const weatherLocation = document.querySelector("#weather-location");
   const temperature = document.querySelector("#temperature");
   const weatherIcon = document.querySelector("#weather-icon");
   const weather = document.querySelector("#weatherDesc");
   const description = document.querySelector("#description");
   const tempUnit = document.querySelector("#tempUnitBtn").className;
+
+  body.style.backgroundImage = `url(${backgroundImage})`;
+  body.style.backgroundRepeat = "no-repeat";
+  body.style.backgroundSize = "cover";
+  body.style.backgroundPosition = "center";
 
   const currentTemp = getTemperature(weatherInfo.temperature, tempUnit);
   weatherLocation.textContent = weatherInfo.address;
