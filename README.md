@@ -2,4 +2,4 @@
 
 This is project that was created as part of The Odin Project course to learn about Promises, async-await and APIs
 
-Live Preview - https://anuvind10.github.io/
+Live Preview - https://anuvind10.github.io/Weather_App/
