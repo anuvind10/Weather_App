@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+  <script defer src="main.js"></script></head>
+  <body>
+    <div id="overlay"></div>
+    <header>
+      <div id="appDetails">
+        <img src="" alt="logo" id="app-logo" />
+        <h1>Atmos</h2>
+      </div>
+      <div id="formDiv">
+        <form action="">
+          <input type="text" name="location" id="location" placeholder="Search for city"/>
+          <button id="searchBtn">Search</button>
+        </form>
+      </div>
+      <div id="tempUnitDiv">
+        <button id="tempUnitBtn" class="celcius">C°</button>
+      </div>
+    </header>
+    <main>
+      <div id="weather-details">
+        <div id="temperatureDiv">
+          <div id="weatherIconDiv">
+            <img src="" alt="weather icon" id="weather-icon">
+          </div>
+          <div id="tempWeatherDiv">
+            <h1 id="temperature">31°</h1>
+            <p id="weatherDesc"></p>
+          </div>
+        </div>
+        <h1 id="weather-location"></h1>
+        <p id="description"></p>
+      </div>
+    </main>
+  </body>
+</html>
