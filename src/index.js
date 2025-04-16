@@ -16,9 +16,24 @@ async function pageLoad() {
 
   searchBtn.addEventListener("click", async (event) => {
     event.preventDefault();
-    const location = document.querySelector("#location").value;
-    weatherInfo = await getWeather(location);
-    display.updateDisplay(weatherInfo);
+    const locationInput = document.querySelector("#location");
+    const location = locationInput.value;
+
+    // A location must be entered
+    if (location === "") {
+      locationInput.classList.add("invalid");
+      return;
+    } else {
+      locationInput.classList.remove("invalid");
+
+      // Get the weather and display it
+      try {
+        weatherInfo = await getWeather(location);
+        display.updateDisplay(weatherInfo);
+      } catch (error) {
+        alert(`Unable to find get details for ${location}`);
+      }
+    }
   });
 
   unitChangeBtn.addEventListener("click", () => {
@@ -29,7 +44,6 @@ async function pageLoad() {
 export async function getWeather(location) {
   const weatherData = await weather.fetchWeather(location);
   const weatherInfo = weather.getRequiredInfo(weatherData);
-
   return weatherInfo;
 }
 

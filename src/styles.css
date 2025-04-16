@@ -98,6 +98,10 @@ form {
   border-radius: 10px;
 }
 
+#location.invalid {
+  border: 1px solid red;
+}
+
 #searchBtn {
   font-size: 16px;
   color: var(--font-color);
